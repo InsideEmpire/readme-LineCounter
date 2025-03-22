@@ -74,7 +74,7 @@ def get_user_code(username):
     img.save(img_stream, format='PNG')
     img_stream.seek(0)
 
-    return Image.open(img_stream)
+    return send_file(img_stream, mimetype='image/png')
 
 
 def generate_image(code_lines):
