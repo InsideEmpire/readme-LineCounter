@@ -1,4 +1,8 @@
+from io import BytesIO
+
 import requests
+from flask import *
+from PIL import Image, ImageDraw, ImageFont
 
 
 def get_github_repos(username: str) -> list[dict[str, str]]:
@@ -56,3 +60,44 @@ def get_github_lines(username: str) -> int:
     return total_lines
 
 
+@app.route('/<username>', methods=['GET'])
+def get_user_code(username):
+    lines = get_github_lines(username)
+    if not lines:
+        return jsonify({"error": "GitHub user not found or error occurred."}), 404
+
+    img = generate_image(lines)
+
+    # 将生成的图像保存为 PNG 格式
+    img_stream = BytesIO()
+    img.save(img_stream, format='PNG')
+    img_stream.seek(0)
+
+    return Image.open(img_stream)
+
+
+def generate_image(code_lines):
+    # 创建一个白色背景的图像
+    img = Image.new('RGB', (300, 150), color='white')
+    draw = ImageDraw.Draw(img)
+
+    # 设置字体（如果服务器上没有默认字体，可以去掉 font 参数）
+    try:
+        font = ImageFont.truetype("arial.ttf", 80)  # 选择字体（Windows/Mac）
+    except IOError:
+        font = ImageFont.load_default()  # 备用字体（Linux/无字体环境）
+
+    # 计算文本位置，使其居中
+    text = str(code_lines)
+    text_width, text_height = draw.textsize(text, font=font)
+    position = ((img.width - text_width) // 2, (img.height - text_height) // 2)
+
+    # 绘制文字
+    draw.text(position, text, fill='black', font=font)
+
+    # 保存图像到字节流
+    img_stream = BytesIO()
+    img.save(img_stream, format='PNG')
+    img_stream.seek(0)
+
+    return img
