@@ -1,8 +1,12 @@
 import requests
 
 
-# 获取 GitHub 用户的公共仓库信息
-def get_github_repos(username):
+def get_github_repos(username: str) -> list[dict[str, str]]:
+    '''
+    获取 GitHub 用户的公共仓库信息
+    :param username: username of GitHub
+    :return: A json file containing a list of dict
+    '''
     url = f"https://api.github.com/users/{username}/repos?type=all&per_page=100"
     response = requests.get(url)
 
@@ -13,8 +17,13 @@ def get_github_repos(username):
     return response.json()
 
 
-# 获取仓库的语言使用情况
-def get_repo_languages(username, repo_name):
+def get_repo_languages(username: str, repo_name: str) -> dict[str, int]:
+    '''
+    获取仓库的语言使用情况
+    :param username: username of GitHub
+    :param repo_name: repository name of a repo
+    :return: A json file which is a dict of different languages usage
+    '''
     url = f"https://api.github.com/repos/{username}/{repo_name}/languages"
     response = requests.get(url)
 
@@ -25,8 +34,12 @@ def get_repo_languages(username, repo_name):
     return response.json()
 
 
-# 计算 GitHub 用户的总代码行数
-def get_github_lines(username):
+def get_github_lines(username: str) -> int:
+    '''
+    计算 GitHub 用户的总代码行数
+    :param username: username of GitHub
+    :return: total code lines of a user
+    '''
     repos = get_github_repos(username)
     total_lines = 0
 
