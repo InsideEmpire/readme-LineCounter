@@ -174,3 +174,7 @@ cython_debug/
 .pypirc
 
 *.PNG
+
+.DS_Store
+
+.idea
