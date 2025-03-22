@@ -4,6 +4,7 @@ import requests
 from flask import *
 from PIL import Image, ImageDraw, ImageFont
 
+app = Flask(__name__)
 
 def get_github_repos(username: str) -> list[dict[str, str]]:
     '''
