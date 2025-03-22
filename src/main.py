@@ -82,18 +82,20 @@ def generate_image(code_lines):
     img = Image.new('RGB', (300, 150), color='white')
     draw = ImageDraw.Draw(img)
 
-    # 设置字体（如果服务器上没有默认字体，可以去掉 font 参数）
     try:
-        font = ImageFont.truetype("arial.ttf", 80)  # 选择字体（Windows/Mac）
+        font = ImageFont.truetype("arial.ttf", 80)
     except IOError:
-        font = ImageFont.load_default()  # 备用字体（Linux/无字体环境）
+        font = ImageFont.load_default()
+
+    text = str(code_lines)
+
+    # 使用 textbbox 替代 textsize
+    bbox = draw.textbbox((0, 0), text, font=font)  # 获取文本的边界框
+    text_width = bbox[2] - bbox[0]
+    text_height = bbox[3] - bbox[1]
 
     # 计算文本位置，使其居中
-    text = str(code_lines)
-    text_width, text_height = draw.textsize(text, font=font)
     position = ((img.width - text_width) // 2, (img.height - text_height) // 2)
-
-    # 绘制文字
     draw.text(position, text, fill='black', font=font)
 
     # 保存图像到字节流
