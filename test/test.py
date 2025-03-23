@@ -1,4 +1,4 @@
-from src.main import *
+from src.line_counter import get_github_lines
 
 # 测试：计算用户的总代码行数
 username = "InsideEmpire"  # 替换为你想查询的 GitHub 用户名
