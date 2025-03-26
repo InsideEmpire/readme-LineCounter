@@ -2,6 +2,7 @@ from flask import *
 from flask import Response
 
 from src.line_counter import get_github_lines
+from src.svg_modifier import modify_svg_image
 from src.svg_generator import generate_svg_image
 
 app = Flask(__name__)
@@ -18,7 +19,8 @@ def get_user_code(username: str) -> Response:
     if not lines:
         return jsonify({"error": "GitHub user not found or no code available."})
 
-    svg_image = generate_svg_image(lines)
+    # svg_image = generate_svg_image(lines)
+    svg_image = modify_svg_image(lines)
 
     # 确保返回 SVG 字符串
     if not isinstance(svg_image, str):
