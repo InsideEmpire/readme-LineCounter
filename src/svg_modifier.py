@@ -1,10 +1,13 @@
+import os
+
 def modify_svg_image(total_lines: int) -> str:
+    base_dir = os.path.dirname(os.path.abspath(__file__))  # 获取当前文件所在目录
+    svg_path = os.path.join(base_dir, "svg/demo.svg")  # 计算绝对路径
+
     try:
-        with open("../src/svg/demo.svg", "r", encoding="utf-8") as svg_file:
+        with open(svg_path, "r", encoding="utf-8") as svg_file:
             svg_image = svg_file.read()
     except FileNotFoundError:
-        svg_image = "File not found"
+        return "File not found"
 
-    new_svg_image = svg_image.replace("{total_lines:,}", f"{total_lines:,}")
-
-    return new_svg_image
+    return svg_image.replace("{total_lines:,}", f"{total_lines:,}")
