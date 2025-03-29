@@ -20,7 +20,7 @@
     <text x="20" y="55%" fill="#ffcc00" font-size="32" font-weight="bold" font-family="Segoe UI, Ubuntu, Sans-Serif" text-anchor="start">
         {total_lines:,}
     </text>
-    <text x="23" y="85%" fill="#fff" font-size="24" font-family="Segoe UI, Ubuntu, Sans-Serif" text-anchor="start">
+    <text x="23" y="83%" fill="#fff" font-size="24" font-family="Segoe UI, Ubuntu, Sans-Serif" text-anchor="start">
         lines of code
     </text>
 </svg>
