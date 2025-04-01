@@ -1,4 +1,5 @@
 import asyncio
+import os
 
 import markdown
 from flask import *
@@ -32,7 +33,9 @@ def get_user_code(username: str) -> Response:
 
 @app.route("/", methods=["GET"])
 def home_page():
-    with open("../README.md", mode="r") as file:
+    base_dir = os.path.dirname(os.path.abspath(__file__))  # 获取当前文件所在目录
+    readme_path = os.path.join(base_dir, "../README.md")  # 计算绝对路径
+    with open(readme_path, mode="r") as file:
         README = file.read()
         return render_template_string(markdown.markdown(README))
 
