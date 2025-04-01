@@ -1,5 +1,6 @@
 import asyncio
 
+import markdown
 from flask import *
 from flask import Response
 
@@ -28,6 +29,12 @@ def get_user_code(username: str) -> Response:
         return jsonify({"error": "Failed to generate SVG"})
 
     return Response(svg_image, mimetype="image/svg+xml")
+
+@app.route("/", methods=["GET"])
+def home_page():
+    with open("../README.md", mode="r") as file:
+        README = file.read()
+        return render_template_string(markdown.markdown(README))
 
 # Vercel 将自动运行 Flask 应用
 if __name__ == "__main__":
