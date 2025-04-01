@@ -1,5 +1,7 @@
 import asyncio
+import os
 
+import markdown
 from flask import *
 from flask import Response
 
@@ -28,6 +30,14 @@ def get_user_code(username: str) -> Response:
         return jsonify({"error": "Failed to generate SVG"})
 
     return Response(svg_image, mimetype="image/svg+xml")
+
+@app.route("/", methods=["GET"])
+def home_page():
+    base_dir = os.path.dirname(os.path.abspath(__file__))  # 获取当前文件所在目录
+    readme_path = os.path.join(base_dir, "../README.md")  # 计算绝对路径
+    with open(readme_path, mode="r") as file:
+        README = file.read()
+        return render_template_string(markdown.markdown(README))
 
 # Vercel 将自动运行 Flask 应用
 if __name__ == "__main__":

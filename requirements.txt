@@ -4,3 +4,4 @@ pillow
 aiohttp
 uvicorn
 quart
+markdown
