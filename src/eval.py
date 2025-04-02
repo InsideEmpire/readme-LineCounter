@@ -21,6 +21,20 @@ async def get_github_lines(username: str) -> int:
 
         return total_lines
 
+async def get_github_stars(username: str) -> int:
+    """
+    计算 GitHub 用户的总star数
+    :param username: username of GitHub
+    :return: total code lines of a user
+    """
+    async with aiohttp.ClientSession() as session:
+        repos = await get_github_repos(session, username)
+
+        tasks = [get_repo_stars(session, username, repo["name"]) for repo in repos]
+        stars_list = await asyncio.gather(*tasks)  # 并行获取所有仓库的 Star 数
+
+        return sum(stars_list)  # 计算总 Star 数
+
 
 def estimate_lines(byte_size: int, lang: str) -> int:
     """根据字节数和编程语言类型估算代码行数"""

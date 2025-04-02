@@ -18,19 +18,24 @@ This is a tool for counting the lines of code of GitHub users and generating SVG
 
 ## 演示 | Demo
 
-[![我的代码行数](https://readme-line-counter.vercel.app/InsideEmpire)](https://github.com/InsideEmpire/readme-LineCounter)
+[![我的代码行数](https://readme-line-counter.vercel.app/InsideEmpire?category=lines&theme=sunset)](https://github.com/InsideEmpire/readme-LineCounter)
+[![我的代码行数](https://readme-line-counter.vercel.app/InsideEmpire?category=stars&theme=sunset)](https://github.com/InsideEmpire/readme-LineCounter)
 
 将以下链接添加到你的 GitHub Profile README 或任何支持 markdown 的文档中即可显示你的代码行数统计卡片：
 
 Add the following link to your GitHub Profile README or any markdown-supported document to display your code line count card:
 
 ```markdown
-[![我的代码行数](https://readme-line-counter.vercel.app/{username})](https://github.com/InsideEmpire/readme-LineCounter)
+[![我的代码行数](https://readme-line-counter.vercel.app/{username}?category={category}&theme={theme})](https://github.com/InsideEmpire/readme-LineCounter)
 ```
 
-请将 `{username}` 替换为你的 GitHub 用户名。
+请将 `{username}` 替换为你的 GitHub 用户名。  
+`{category}` 可以是 `lines` 或 `stars`
+`{theme}` 目前只有 `sunset`
 
 Please replace `{username}` with your GitHub username.
+`{category}` could be `lines` or `stars`
+`{theme}` only has `sunset` theme currently
 
 ## 使用限制 | Usage Limitations
 
