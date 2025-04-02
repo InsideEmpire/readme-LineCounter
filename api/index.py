@@ -5,25 +5,32 @@ import markdown
 from flask import *
 from flask import Response
 
-from src.line_counter import get_github_lines
+from src.eval import get_github_lines, get_github_stars
 from src.svg_modifier import modify_svg_image
 
 app = Flask(__name__)
 
 
 @app.route('/<username>', methods=['GET'])
-def get_user_code(username: str) -> Response:
-    """
-    获取用户 GitHub 代码行数，并返回 SVG 统计卡片
-    """
-    lines = asyncio.run(get_github_lines(username))
+def response_img(username: str) -> Response:
+    response: Response
 
-    # 检查 lines 是否为 None 或 0
-    if not lines:
-        return jsonify({"error": "GitHub user not found or no code available."})
+    category = request.args.get("category", "lines")
+    theme = request.args.get("theme", "sunset")
 
-    # svg_image = generate_svg_image(lines)
-    svg_image = modify_svg_image(lines)
+    if category == "lines":
+        data_value = asyncio.run(get_github_lines(username))
+    elif category == "stars":
+        data_value = asyncio.run(get_github_stars(username))
+    else:
+        return jsonify({"error": "Invalid category. Use 'lines' or 'stars'."})
+
+        # 检查数据是否有效
+    if not data_value:
+        return jsonify({"error": "GitHub user not found or no data available."})
+
+        # 生成 SVG 图片
+    svg_image = modify_svg_image(data_value, category, theme)
 
     # 确保返回 SVG 字符串
     if not isinstance(svg_image, str):

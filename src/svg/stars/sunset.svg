@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" viewBox="0 0 900 210" role="img" preserveAspectRatio="xMidYMid meet">
+    <!-- 定义渐变色 -->
+    <defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#b90068;stop-opacity:1" /> <!-- 紫红过渡 -->
+            <stop offset="10%" style="stop-color:#d1007f;stop-opacity:1" /> <!-- 玫红 -->
+            <stop offset="30%" style="stop-color:#e95a2f;stop-opacity:1" /> <!-- 玫红 → 橙 -->
+            <stop offset="45%" style="stop-color:#ff7f00;stop-opacity:1" /> <!-- 橙色 -->
+            <stop offset="70%" style="stop-color:#f6a447;stop-opacity:1" /> <!-- 橙 → 浅黄 -->
+            <stop offset="100%" style="stop-color:#f6cc7f;stop-opacity:1" /> <!-- 黄色 -->
+        </linearGradient>
+    </defs>
+
+    <!-- 使用渐变色作为背景 -->
+    <rect width="100%" height="100%" fill="url(#gradient)" rx="20"/>
+
+    <!-- 主标题，左对齐 -->
+    <text x="3%" y="27%" fill="#fff" font-size="42" font-family="Segoe UI, Ubuntu, Sans-Serif" text-anchor="start" font-weight="bold">
+        Wow, you have earned
+    </text>
+
+    <!-- 主要统计文本（星星数），左对齐，字体更大，强调 -->
+    <text x="3%" y="63%" fill="#ffcc00" font-size="72" font-weight="bold" font-family="Segoe UI, Ubuntu, Sans-Serif" text-anchor="start">
+        {data_value} ⭐
+    </text>
+
+    <!-- 次要文本，左对齐 -->
+    <text x="3%" y="87%" fill="#fff" font-size="42" font-family="Segoe UI, Ubuntu, Sans-Serif" text-anchor="start" font-weight="bold">
+        stars on GitHub
+    </text>
+</svg>
